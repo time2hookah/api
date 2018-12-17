@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     if (!token) return res.status(401).send('Access denied. No token provided.');
 
     try {
-        const publicKEY = fs.readFileSync('./interceptors/public.key', 'utf8');
+        const publicKEY = fs.readFileSync('./config/keys/public.key', 'utf8');
         const i = 'time2hookah llc'; // Issuer 
         const s = 'info@time2hookah.com'; // Subject 
         const a = 'http://time2hookah.com'; // Audience
@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
             issuer: i,
             subject: s,
             audience: a,
-            expiresIn: "12h",
+            expiresIn: "1h",
             algorithm: "RS256"
         };
         const decoded = jwt.verify(token, publicKEY, verifyOptions);

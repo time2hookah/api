@@ -52,7 +52,7 @@ userSchema.methods.generateAuthToken = function () {
         issuer: i,
         subject: s,
         audience: a,
-        expiresIn: "12h",
+        expiresIn: "1h",
         algorithm: "RS256"
     };
     const token = jwt.sign({
