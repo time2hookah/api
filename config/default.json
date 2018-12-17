@@ -1,0 +1,4 @@
+{
+    "t2h_jwtPrivateKey" : "t2h_jwtPrivateKey",
+    "db":"mongodb://localhost/time2hookah"
+}
