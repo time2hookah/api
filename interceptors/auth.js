@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const winston = require('winston');
 const fs = require('fs'); //file system
 
 module.exports = function (req, res, next) {
@@ -24,6 +25,7 @@ module.exports = function (req, res, next) {
         req.user = decoded;
         next();
     } catch (e) {
-        res.status(400).send(e.message);
+        winston.error(e.message, e);
+        res.status(400).send('Invalid token');
     }
 }
