@@ -28,7 +28,7 @@ controller.post('/', async (req, res) => {
     const {
         error
     } = validate(req.body);
-    if (error) return res.status(base.API_STATUS.CLIENT_ERROR.BAD_REQUEST).send(error.details[0].message);
+    if (error) return res.status(def.API_STATUS.CLIENT_ERROR.BAD_REQUEST).send(error.details[0].message);
 
     let user = await User.findOne({
         email: req.body.email
