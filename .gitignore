@@ -1,3 +1,5 @@
 node_modules/
 .vscode/
 coverage/
+logs/logfile.log
+logs/exceptions.log

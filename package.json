@@ -1,4 +1,3 @@
-
 {
   "name": "api",
   "version": "1.0.0",
@@ -30,5 +29,17 @@
   "devDependencies": {
     "jest": "^23.6.0",
     "supertest": "^3.3.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/time2hookah/api.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/time2hookah/api/issues"
+  },
+  "homepage": "https://github.com/time2hookah/api#readme"
 }
