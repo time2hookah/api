@@ -1,6 +1,8 @@
 const def = require('../models/BE/apiStatus');
 const auth = require('../interceptors/auth');
 const admin = require('../interceptors/admin');
+const validateObjectId = require('../interceptors/validateObjectId');
+const validateNow = require('../interceptors/validate');
 const _ = require('lodash'); //js utility lib
 const bcrypt = require('bcrypt'); // for password encryption
 const {

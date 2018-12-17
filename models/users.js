@@ -1,31 +1,32 @@
-const config                = require('config');
-const jwt                   = require('jsonwebtoken'); //generate json token
-const Joi                   = require('joi');
-Joi.objectId                = require('joi-objectid')(Joi);
-const PasswordComplexity    = require('joi-password-complexity');
-const mongoose              = require('mongoose');
+const config = require('config');
+const fs = require('fs'); //file system
+const jwt = require('jsonwebtoken'); //generate json token
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+const PasswordComplexity = require('joi-password-complexity');
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    firstName:{
+    firstName: {
         type: String,
         required: true,
         trim: true,
         minlength: 2,
-        maxlength:50
+        maxlength: 50
     },
-    lastName:{
+    lastName: {
         type: String,
         required: true,
         trim: true,
         minlength: 2,
-        maxlength:50
+        maxlength: 50
     },
-    email:{
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    password:{
+    password: {
         type: String,
         required: true,
         minlength: 8,
@@ -33,31 +34,51 @@ const userSchema = new mongoose.Schema({
     },
     isAdmin: {
         type: Boolean,
-        default:false
+        default: false
     }
 });
 
-userSchema.methods.generateAuthToken = function(){
-    const token = jwt.sign( { _id: this._id, isAdmin:this.isAdmin }, config.get('t2h_jwtPrivateKey') );
+userSchema.methods.generateAuthToken = function () {
+
+    // PRIVATE and PUBLIC key
+
+    let privateKEY = fs.readFileSync('./models/private.key');
+
+    const i = 'time2hookah llc'; // Issuer 
+    const s = 'info@time2hookah.com'; // Subject 
+    const a = 'http://time2hookah.com'; // Audience
+    // SIGNING OPTIONS
+    const signOptions = {
+        issuer: i,
+        subject: s,
+        audience: a,
+        expiresIn: "12h",
+        algorithm: "RS256"
+    };
+    const token = jwt.sign({
+        _id: this._id,
+        email: this.email,
+        isAdmin: this.isAdmin
+    }, privateKEY, signOptions);
     return token;
 }
 
-userSchema.methods.validatePassword = function(){
+userSchema.methods.validatePassword = function () {
     const complexityOptions = {
-        min:8,
-        max:30,
-        lowerCase:1,
-        upperCase:1,
-        numeric:1,
-        symbol:1,
-        requirementCount:4
+        min: 8,
+        max: 30,
+        lowerCase: 1,
+        upperCase: 1,
+        numeric: 1,
+        symbol: 1,
+        requirementCount: 4
     }
-    return Joi.validate(this.password,new PasswordComplexity(complexityOptions));
+    return Joi.validate(this.password, new PasswordComplexity(complexityOptions));
 }
 
-const User = mongoose.model('users', userSchema );
+const User = mongoose.model('users', userSchema);
 
-function validateUser( user ){
+function validateUser(user) {
     const schema = {
         id: Joi.objectId(),
         firstName: Joi.string().min(2).max(50).required(),
@@ -66,7 +87,7 @@ function validateUser( user ){
         password: Joi.string().min(8).max(50).required()
     }
 
-    return Joi.validate(user,schema);
+    return Joi.validate(user, schema);
 }
 
 
