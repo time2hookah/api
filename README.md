@@ -13,5 +13,9 @@ git push -u origin master
 git remote add origin https://github.com/time2hookah/api.git
 git push -u origin master
 
-# To Clone repository
+## To Clone repository
 git clone https://github.com/time2hookah/api.git
+
+## To Fetch/Pull from repository
+git fetch
+git pull
