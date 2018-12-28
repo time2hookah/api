@@ -6,7 +6,7 @@ const {
 const {
     User
 } = require('../../../models/users');
-const def = require('../../../models/BE/apiStatus');
+const def = require('../../../models/def/statuses');
 const request = require('supertest');
 const http = require('http');
 //const mongoose  = require('mongoose');
