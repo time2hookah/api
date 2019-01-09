@@ -1,4 +1,4 @@
-const def = require('../models/BE/apiStatus');
+const def = require('../models/def/statuses');
 const auth = require('../interceptors/auth');
 const admin = require('../interceptors/admin');
 const validateObjectId = require('../interceptors/validateObjectId');

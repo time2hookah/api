@@ -1,5 +1,6 @@
+const def = require('../models/def/statuses');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+//const config = require('config');
 const winston = require('winston');
 const fs = require('fs'); //file system
 
@@ -26,6 +27,6 @@ module.exports = function (req, res, next) {
         next();
     } catch (e) {
         winston.error(e.message, e);
-        res.status(400).send('Invalid token');
+        res.status(def.API_STATUS.CLIENT_ERROR.BAD_REQUEST).send('Invalid token');
     }
 }
