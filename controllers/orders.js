@@ -7,19 +7,21 @@ const validateNow = require('../interceptors/validate');
 const {
     Order,
     validate
-} = require('../models/orders');
+} = require('../models/order');
 const {
     Customer
-} = require('../models/customers');
+} = require('../models/customer');
 const express = require('express');
 const controller = express.Router();
+
+
 
 controller.get('/', [auth, admin], async (req, res) => {
     const orders = await Order.find().sort('-orderDate');
     res.send(orders);
 });
 
-router.get('/:id', [auth, admin, validateObjectId], async (re, res) => {
+controller.get('/:id', [auth, admin, validateObjectId], async (re, res) => {
     const order = await Order.findById(req.params.id);
     if (!order) res.status(def.API_STATUS.CLIENT_ERROR.NOT_FOUND).send('unable to find the order for given id.');
 

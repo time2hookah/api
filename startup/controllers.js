@@ -1,5 +1,6 @@
 const express = require('express');
 const customers = require('../controllers/customers');
+const orders = require('../controllers/orders');
 const hookahheadtypes = require('../controllers/hookahheadtypes');
 const tobaccoflavors = require('../controllers/tobaccoflavors');
 const tobaccobrands = require('../controllers/tobaccobrands');
@@ -15,6 +16,7 @@ module.exports = function (app) {
     app.use('/api/tobaccoflavors', tobaccoflavors);
     app.use('/api/hookahheadtypes', hookahheadtypes);
     app.use('/api/customers', customers);
+    app.use('/api/orders', orders);
     //Error Handler
     app.use(error);
 }

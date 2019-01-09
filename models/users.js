@@ -42,7 +42,7 @@ userSchema.methods.generateAuthToken = function () {
 
     // PRIVATE and PUBLIC key
 
-    let privateKEY = fs.readFileSync('./models/private.key');
+    let privateKEY = fs.readFileSync('./config/keys/private.key');
 
     const i = 'time2hookah llc'; // Issuer 
     const s = 'info@time2hookah.com'; // Subject 
