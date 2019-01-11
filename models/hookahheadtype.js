@@ -1,26 +1,17 @@
+const {
+    defSchema,
+    validateDef
+} = require('./definition');
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-const hookahheadtypeSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 2,
-        maxlength: 50
-    },
+const hookahheadtypeSchema = defSchema.add({
     isFruit: {
         type: Boolean,
         required: true,
         default: true
-    },
-    description: {
-        type: String,
-        required: false,
-        minlength: 5,
-        maxlength: 350
     }
-
-});
+})
 
 const HookahHeadType = mongoose.model('hookahheadtypes', hookahheadtypeSchema);
 
