@@ -10,21 +10,12 @@ const hookahheadtypeSchema = defSchema.add({
         type: Boolean,
         required: true,
         default: true
-<<<<<<< HEAD
-    },
-    description: {
-        type: String,
-        required: false,
-        minlength: 5,
-        maxlength: 350
     },
     price:{
         type:Number,
         required:true,
         min:0,
         max:100
-=======
->>>>>>> 8b9c31fe7082c466d3716a668bff30ca2f3fcdbd
     }
 })
 

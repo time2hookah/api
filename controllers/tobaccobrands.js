@@ -35,10 +35,10 @@ controller.post('/', [auth, admin, validateNow(validate)], async (req, res) => {
 
     if (tobaccobrand) return res.status(def.API_STATUS.CLIENT_ERROR.BAD_REQUEST).send('Brand already exist.');
 
-    tobaccobrand = new TobaccoBrand(_.pick(req.body, ['name', 'description']));
+    tobaccobrand = new TobaccoBrand(_.pick(req.body, ['name', 'description','isFruit','price']));
     await tobaccobrand.save();
 
-    res.send(_.pick(tobaccobrand, ['_id', 'name', 'description']));
+    res.send(_.pick(tobaccobrand, ['_id', 'name', 'description','isFruit','price']));
 });
 
 /*
