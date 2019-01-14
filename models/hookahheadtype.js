@@ -18,6 +18,12 @@ const hookahheadtypeSchema = new mongoose.Schema({
         required: false,
         minlength: 5,
         maxlength: 350
+    },
+    price:{
+        type:Number,
+        required:true,
+        min:0,
+        max:100
     }
 
 });
@@ -28,7 +34,8 @@ function validateToHookahHeadType(hookahheadtype) {
     const schema = {
         name: Joi.string().min(5).max(50).required(),
         isFruit: Joi.boolean().required(),
-        description: Joi.string().min(5).max(350)
+        description: Joi.string().min(5).max(350),
+        price:Joi.number().min(0).max(100).required()
     };
 
     return Joi.validate(hookahheadtype, schema);

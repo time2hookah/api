@@ -35,10 +35,10 @@ controller.post('/', [auth, admin, validateNow(validate)], async (req, res) => {
 
     if (hookahheadtype) return res.status(def.API_STATUS.CLIENT_ERROR.BAD_REQUEST).send('Hookah head type already exist.');
 
-    hookahheadtype = new HookahHeadType(_.pick(req.body, ['name', 'isFruit', 'description']));
+    hookahheadtype = new HookahHeadType(_.pick(req.body, ['name', 'isFruit', 'description','price']));
     await hookahheadtype.save();
 
-    res.send(_.pick(hookahheadtype, ['_id', 'name', 'isFruit', 'description']));
+    res.send(_.pick(hookahheadtype, ['_id', 'name', 'isFruit', 'description','price']));
 });
 
 /*
@@ -52,7 +52,8 @@ controller.put('/:id', [auth, admin, validateObjectId, validateNow(validate)], a
     const hookahheadtype = await HookahHeadType.findByIdAndUpdate(req.params.id, {
         name: req.body.name,
         isFruit: req.body.isFruit,
-        description: req.body.description
+        description: req.body.description,
+        price: req.body.price
     }, {
         new: true
     })
