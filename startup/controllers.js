@@ -28,6 +28,7 @@ module.exports = function (app) {
     app.use('/api/hookahheadtypes', hookahheadtypes);
     app.use('/api/customers', customers);
     app.use('/api/orders', orders);
+
     //Error Handler
     app.use(error);
 }
