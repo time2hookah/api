@@ -6,7 +6,7 @@ const _ = require('lodash'); //js utility lib
 const validateNow = require('../interceptors/validate');
 const {
     HookahHeadType,
-    validate
+    validateToHookahHeadType
 } = require('../models/hookahheadtype')
 const express = require('express');
 const controller = express.Router();
@@ -27,7 +27,7 @@ controller.get('/:id', validateObjectId, async (req, res) => {
  * valid token
  * admin role
  */
-controller.post('/', [auth, admin, validateNow(validate)], async (req, res) => {
+controller.post('/', [auth, admin, validateNow(validateToHookahHeadType)], async (req, res) => {
 
     let hookahheadtype = await HookahHeadType.findOne({
         name: req.body.name
@@ -35,10 +35,10 @@ controller.post('/', [auth, admin, validateNow(validate)], async (req, res) => {
 
     if (hookahheadtype) return res.status(def.API_STATUS.CLIENT_ERROR.BAD_REQUEST).send('Hookah head type already exist.');
 
-    hookahheadtype = new HookahHeadType(_.pick(req.body, ['name', 'isFruit', 'description','price']));
+    hookahheadtype = new HookahHeadType(_.pick(req.body, ['name', 'isFruit', 'description', 'price']));
     await hookahheadtype.save();
 
-    res.send(_.pick(hookahheadtype, ['_id', 'name', 'isFruit', 'description','price']));
+    res.send(_.pick(hookahheadtype, ['_id', 'name', 'isFruit', 'description', 'price']));
 });
 
 /*
@@ -47,7 +47,7 @@ controller.post('/', [auth, admin, validateNow(validate)], async (req, res) => {
  * valid token
  * admin role
  */
-controller.put('/:id', [auth, admin, validateObjectId, validateNow(validate)], async (req, res) => {
+controller.put('/:id', [auth, admin, validateObjectId, validateNow(validateToHookahHeadType)], async (req, res) => {
 
     const hookahheadtype = await HookahHeadType.findByIdAndUpdate(req.params.id, {
         name: req.body.name,

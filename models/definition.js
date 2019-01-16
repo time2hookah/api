@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
-const defSchema = new mongoose.Schema({
+let defSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -18,14 +19,17 @@ const defSchema = new mongoose.Schema({
 
 //const FruitType = mongoose.model('fruittypes', defSchema);
 
-function validateDef(definition) {
-    const schema = {
-        name: Joi.string().min(5).max(50).required(),
-        description: Joi.string().min(5).max(350)
-    };
+const defJoiSchema = {
+    id: Joi.objectId(),
+    name: Joi.string().min(5).max(50).required(),
+    description: Joi.string().min(5).max(350)
+}
 
-    return Joi.validate(definition, schema);
+
+function validateDef(definition) {
+    return Joi.validate(definition, defJoiSchema);
 }
 
 module.exports.defSchema = defSchema;
+module.exports.defJoiSchema = defJoiSchema;
 module.exports.validateDef = validateDef;
